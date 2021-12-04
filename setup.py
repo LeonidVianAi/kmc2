@@ -23,7 +23,22 @@
 import numpy as np
 from setuptools import setup, Extension
 
-module1 = Extension('kmc2', sources=['kmc2.c'], extra_compile_args=['-O3'])
+module1 = Extension(
+    'kmc2',
+    sources=['kmc2.c'],
+    extra_compile_args=['-O3'],
+    define_macros=[
+        ('exc_traceback', 'curexc_traceback'),
+        ('exc_value', 'curexc_value'),
+        ('exc_type', 'curexc_type'),
+        ('tp_print', 'tp_vectorcall_offset'),
+        ('NPY_NO_DEPRECATED_API', '1'),
+    ],
+    include_dirs=[np.get_include(),"."]
+)
+
+print("Leonid ", np.get_include())
+
 setup(
     name='kmc2',
     version='0.1',
@@ -41,5 +56,5 @@ setup(
     ],
     keywords='machine learning clustering kmeans',
     install_requires=["numpy", "scipy", "scikit-learn", "nose"],
-    ext_modules=[module1],
-    include_dirs=[".",np.get_include() ])
+    ext_modules=[module1]
+)
