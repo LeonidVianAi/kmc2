@@ -37,8 +37,6 @@ module1 = Extension(
     include_dirs=[np.get_include(),"."]
 )
 
-print("Leonid ", np.get_include())
-
 setup(
     name='kmc2',
     version='0.1',
